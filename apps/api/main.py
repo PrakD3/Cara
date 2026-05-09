@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import auth, patients, medications, adherence, ai_coach, notifications, webhooks
+from routers import auth, patients, medications, adherence, ai_coach, notifications, webhooks
 
 app = FastAPI(
     title="CARA API",

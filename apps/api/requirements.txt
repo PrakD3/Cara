@@ -11,11 +11,13 @@ httpx
 apscheduler
 rq
 redis
+google-generativeai
+groq
+scikit-learn
 joblib
 pinecone-client
 pyotp
 cuid2
 python-telegram-bot
 exotel
-msg91-sms
 psycopg2-binary
