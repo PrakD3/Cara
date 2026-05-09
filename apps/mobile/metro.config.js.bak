@@ -1,6 +1,0 @@
-import { getDefaultConfig } from "expo/metro-config";
-import { withNativewind } from "nativewind/metro";
-
-const config = getDefaultConfig(import.meta.dirname);
-
-export default withNativewind(config, { input: "./src/global.css" });

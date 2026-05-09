@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Platform, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { LinearGradient } from 'expo-linear-gradient';
+
 import { Pill, Calendar, Bell, Heart, User, ChevronRight, CheckCircle2 } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
-const API_URL = 'http://172.16.3.147:8000'; // Your host machine IP
+const API_URL = 'http://172.16.3.147:8080'; // Your host machine IP
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -74,12 +74,9 @@ export default function App() {
           </View>
         )}
 
-        {/* Streak Hero Card */}
-        <LinearGradient
-          colors={['#4f46e5', '#6366f1']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={{ borderRadius: 32, padding: 24, marginBottom: 24, elevation: 8, shadowColor: '#6366f1', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.3, shadowRadius: 20 }}
+        {/* Streak Hero Card - Fixed with Solid Background for Stability */}
+        <View
+          style={{ backgroundColor: '#6366f1', borderRadius: 32, padding: 24, marginBottom: 24, elevation: 8, shadowColor: '#6366f1', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.3, shadowRadius: 20 }}
         >
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <View>
@@ -95,7 +92,7 @@ export default function App() {
             <View style={{ width: '85%', height: '100%', backgroundColor: '#fff', borderRadius: 4 }} />
           </View>
           <Text style={{ color: 'rgba(255,255,255,0.9)', marginTop: 12, fontSize: 14, fontWeight: '500' }}>Top 5% of heart-health champions this month!</Text>
-        </LinearGradient>
+        </View>
 
         {/* Medication Schedule Section */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -148,7 +145,7 @@ export default function App() {
           <TouchableOpacity style={{ marginTop: 20, backgroundColor: '#334155', alignSelf: 'flex-start', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 12 }}>
             <Text style={{ color: '#fff', fontWeight: '700' }}>Thanks, Dosi!</Text>
           </TouchableOpacity>
-        </LinearGradient>
+        </View>
 
       </ScrollView>
     </View>
