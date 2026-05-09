@@ -1,10 +1,29 @@
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, JSON, Enum, ARRAY, ForeignKey, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+import os
 import enum
 from datetime import datetime
+from sqlalchemy import create_engine, Column, String, Integer, Boolean, DateTime, JSON, Enum, ARRAY, ForeignKey, Float
+from sqlalchemy.orm import sessionmaker, Session, relationship
+from sqlalchemy.ext.declarative import declarative_base
+
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/cara")
+
+# Create engine with some basic safety for connection pooling
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL,
+    pool_pre_ping=True,
+    pool_size=10,
+    max_overflow=20
+)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 class UserRole(str, enum.Enum):
     PATIENT = "PATIENT"
@@ -64,6 +83,7 @@ class PatientProfile(Base):
     last_dose_at = Column(DateTime)
     learned_morning_time = Column(String)
     learned_afternoon_time = Column(String)
+    user = relationship("User", backref="profile")
     learned_night_time = Column(String)
 
 class Medication(Base):
@@ -109,4 +129,4 @@ class AuditLog(Base):
     resource_id = Column(String)
     ip_address = Column(String)
     timestamp = Column(DateTime, default=datetime.utcnow)
-    metadata = Column(JSON)
+    additional_data = Column(JSON)
