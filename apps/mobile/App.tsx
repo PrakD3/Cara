@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Pill, Calendar, Bell, Heart, User, ChevronRight, CheckCircle2 } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
-const API_URL = 'http://192.168.137.1:8080'; // Windows Hotspot IP
+const API_URL = 'http://172.16.3.147:8080'; // Your host machine IP
 
 export default function App() {
   const [data, setData] = useState(null);

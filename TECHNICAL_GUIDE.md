@@ -34,7 +34,7 @@ For the Mobile App (iPhone) to talk to the Laptop (FastAPI), we use a **Local Ne
 1.  **Server IP**: The backend must listen on `0.0.0.0` (all interfaces) instead of `127.0.0.1`.
 2.  **Port 8080**: We moved from 8000 to 8080 to avoid Windows internal service conflicts.
 3.  **Firewall**: Port 8080 is explicitly opened in the Windows Advanced Firewall to allow incoming iPhone requests.
-4.  **Static IP**: The `API_URL` in `App.tsx` is set to your Hotspot IP (`192.168.137.1`).
+4.  **Static IP**: The `API_URL` in `App.tsx` is set to your machine's Wi-Fi IP (`172.16.3.147`).
 
 ---
 
