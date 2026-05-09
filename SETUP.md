@@ -19,9 +19,10 @@ Ensure you have the following installed:
    cd Cara
    ```
 
-2. **Install Node dependencies:**
+2. **Install Node dependencies & Approve Builds:**
    ```bash
    pnpm install
+   pnpm approve-builds
    ```
 
 ---
@@ -36,17 +37,7 @@ You need to set up `.env` files for both the Web and API layers.
    ```bash
    cp .env.example .env
    ```
-3. Fill in the following keys in `.env`:
-   - `GROQ_API_KEY`: Get from [Groq Console](https://console.groq.com/)
-   - `DATABASE_URL`: Your PostgreSQL/Supabase link
-   - `REDIS_URL`: Your local Redis or Upstash link
-
-### Frontend (Web)
-1. Go to `apps/web`
-2. Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
+3. **Note on Database**: By default, CARA uses **SQLite** for zero-config local development. You do **not** need to set `DATABASE_URL` unless you are migrating to production.
 
 ---
 
@@ -62,29 +53,36 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn main:app --reload --host 0.0.0.0 --port 8080
 ```
-- **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **API Docs**: [http://localhost:8080/docs](http://localhost:8080/docs)
 
-### 2. Start the Frontend (Next.js 16)
-In a new terminal (root directory):
+### 2. Start the Mobile App (Expo)
+```bash
+cd apps/mobile
+npx expo start --clear
+```
+- **iPhone Link**: Scan the QR code to open in **Expo Go**.
+
+### 3. Start the Web Dashboard
+In a new terminal:
 ```bash
 pnpm --filter web dev
 ```
-- **Dashboard**: [http://localhost:3000/dashboard](http://localhost:3000/dashboard)
+- **Dashboard**: [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🎨 Code Style & Quality
-We use **BiomeJS** for linting and formatting. Please run these before pushing:
-
-- **Check for issues:** `pnpm lint`
-- **Auto-fix formatting:** `pnpm format`
+## 🌐 Networking (iPhone Connection)
+If your phone cannot see the server, ensure:
+1. Your **Firewall** is disabled or allows Port 8080.
+2. Your Wi-Fi network profile is set to **Private** (not Public).
+3. `API_URL` in `apps/mobile/App.tsx` matches your laptop's IP.
 
 ---
 
 ## 📦 Tech Stack Ref
-- **Web**: Next.js 16, Tailwind 4, Lucide Icons
-- **Backend**: FastAPI, SQLAlchemy, Pydantic v2
-- **AI**: Groq (Llama 4 Scout), Gemini 1.5 Flash
-- **Cache**: Redis
+- **Web**: Next.js 15+, Tailwind 4, Lucide Icons
+- **Mobile**: Expo SDK 54, React Native 0.81
+- **Backend**: FastAPI, SQLite (Dev), SQLAlchemy
+- **AI**: Groq, Gemini 1.5 Flash
